@@ -29,12 +29,17 @@ class TextWrapperTest extends Specification {
 
   "wrapText" should {
 
-    println("----------------------------------------")
-    println(wrapText(originalText).toOption.get)
-    println("----------------------------------------")
-
     "handle empty string" in {
       wrapText("", limit) must beRight("")
+    }
+
+    "produce correct output for text made of chars" in {
+      val input = "\n  \n    \n\n"
+      val expected = ""
+      val result = wrapText(input)
+      result must beRight
+
+      result.toOption.get must beEqualTo(expected)
     }
 
     "fail on a string that is too big" in {
@@ -71,5 +76,4 @@ class TextWrapperTest extends Specification {
       result.toOption.get must beEqualTo(expected)
     }
   }
-
 }
